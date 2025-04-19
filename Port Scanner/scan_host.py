@@ -1,4 +1,5 @@
 import socket
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 MAX_THREADS = 100
@@ -24,6 +25,7 @@ def scan_port(host, port):
 
 def scan_host(host, ports):
     print(f"\nScanning host: {host}")
+    start_time = time.time()
     open_ports = []
     with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
         futures = {executor.submit(scan_port, host, port): port for port in ports}
@@ -31,4 +33,8 @@ def scan_host(host, ports):
             result = future.result()
             if result:
                 open_ports.append(result)
+
+    end_time = time.time()
+    duration = end_time - start_time
+    print(f"[i] Scan of {host} completed in {duration:.2f} seconds")
     return host, open_ports
