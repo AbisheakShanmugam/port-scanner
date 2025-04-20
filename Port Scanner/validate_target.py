@@ -11,6 +11,7 @@ def validate_target(target):
         try:
             # Try resolving as a domain name
             socket.gethostbyname(target)
+            print("IP address of given domain is " + socket.gethostbyname(target))
             return True
         except socket.gaierror:
             return False
