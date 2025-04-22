@@ -16,6 +16,7 @@ def parse_port_range(port_range_str):
             ports.update(range(start, end + 1))
         else:
             ports.add(int(part))
+    print(sorted(ports))
     return sorted(ports)
 
 
